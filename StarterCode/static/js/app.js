@@ -5,7 +5,7 @@
 
 //  When importing json, try using metadata
 
- d3.json("StarterCode/samples.json").then((data) => {
+ d3.json("../../samples.json").then((data) => {
     var metadata = data.metadata;
     var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
     var result = resultArray[0];
