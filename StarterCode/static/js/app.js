@@ -7,7 +7,7 @@
 
  d3.json("StarterCode/samples.json").then((data) => {
     var metadata = data.metadata;
-    var resultArray = metadata.filter(sampleObj => sampleObj.id == samples);
+    var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
     var result = resultArray[0];
 
     console.log(result);
