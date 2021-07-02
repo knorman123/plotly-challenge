@@ -12,10 +12,7 @@ function init() {
 
 };
 
-
-
-
-//  When importing json, try using metadata
+//  HINT 1 When importing json, try using metadata
 function data(sample) {
  d3.json("samples.json").then((data) => {
     var metadata = data.metadata;
@@ -40,7 +37,9 @@ function data(sample) {
    var topSampleValues = arrayResult.sample_values.slice(0,10).reverse();
    var topOtuIds = arrayResult.otu_ids.slice(0,10).map(otuid => "OTU" + otuid).reverse();
    var topOtuLabels = arrayResult.otu_labels.slice(0,10);
-   
+   var sampleValues = arrayResult.sample_values;
+   var otuIds = arrayResult.otu_ids;
+   var otuLabels = arrayResult.otu_labels;
 
    // Bar chart
    var trace1 = {
@@ -55,6 +54,9 @@ function data(sample) {
 
     var layout = {
       title: "Top 10 OTUs in Sample",
+      xaxis: {
+         title: "Sample Value"
+      },
       yaxis: {
          ticktext: topOtuLabels,
       }
@@ -62,6 +64,30 @@ function data(sample) {
     };
     
     Plotly.newPlot("bar", bar, layout);
+
+    // Bubble chart
+    var trace2 = {
+       x: otuIds,
+       y: sampleValues,
+       text: otuLabels,
+       mode: "markers",
+       marker: {
+          size: sampleValues,
+          color: otuIds
+       }
+    };
+    var bubble = [trace2];
+
+    var bubbleLayout = {
+       title: "OTU IDs vs Sample Values",
+       xaxis: {
+          title: "OTU ID"
+       },
+       yaxis: {
+          title: "Sample Value"
+       }
+    };
+    Plotly.newPlot("bubble", bubble, bubbleLayout);
   })
  })
 }
@@ -71,17 +97,7 @@ function optionChanged(dropDownValue) {
    data(dropDownValue);
   
  };
-// Create function for plots
-// function buildPlots(dropDownValue) {
-   // get info from json
-//    d3.json("samples.json").then((data) => {
-//       var 
-//    })
-// }
 
-
-   
-// test the function
 init();
 
 
