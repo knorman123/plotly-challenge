@@ -7,7 +7,6 @@
 function data(sample) {
  d3.json("samples.json").then((data) => {
     var metadata = data.metadata;
-    var names = data.names;
     var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
     var result = resultArray[0];
 
@@ -21,11 +20,19 @@ function data(sample) {
       //console.log(`Key: ${key} and Value ${value}`);
 
       var dropDown = d3.select("#selDataset");
+      var names = data.names;
       names.forEach(name => dropDown.append("option").text(name).property("value", name))
 
+ 
   })
  })
-};
+}
+
+// add optionChanged for element .onchange to populate demographics with user input
+function optionChanged(dropDownValue) {
+   data(dropDownValue);
+   console.log(dropDownValue);
+ };
 
 // Create drop down of sample ids
 
