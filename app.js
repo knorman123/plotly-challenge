@@ -1,4 +1,16 @@
+// Create function to initialize page
+function init() {
+   var dropDown = d3.select("#selDataset");
+   // get info from json
+   d3.json("samples.json").then(data => {
+      var names = data.names;
+      names.forEach(name => dropDown.append("option").text(name).property("value", name))
+      // buildPlots(names[0]);
+      data(names[0]);
+   });
 
+
+};
 
 
 
@@ -19,11 +31,6 @@ function data(sample) {
       panelBody.append("h6").text(`${key}: ${value} `);
       //console.log(`Key: ${key} and Value ${value}`);
 
-      var dropDown = d3.select("#selDataset");
-      var names = data.names;
-      names.forEach(name => dropDown.append("option").text(name).property("value", name))
-
- 
   })
  })
 }
@@ -31,14 +38,14 @@ function data(sample) {
 // add optionChanged for element .onchange to populate demographics with user input
 function optionChanged(dropDownValue) {
    data(dropDownValue);
-   console.log(dropDownValue);
+  
  };
 
 // Create drop down of sample ids
 
    
 // test the function
-data('940')
+init();
 
 
 
